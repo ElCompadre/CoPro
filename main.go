@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/elcompadre/copro/config"
+	"github.com/elcompadre/elcompadre/copro/config"
 	"fmt"
 	"encoding/json"
 	"net/http"
@@ -46,6 +46,8 @@ func main() {
 
     if err != nil {
         panic("failed to connect database")
+    } else {
+        fmt.Println("Database connected")
     }
 
     defer db.Close()
