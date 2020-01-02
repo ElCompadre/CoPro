@@ -3,7 +3,6 @@ package config
 import (
 
 	"os"
-	"strconv"
 )
 
 type PostgreSqlConfig struct {
@@ -12,6 +11,7 @@ type PostgreSqlConfig struct {
 	User     string
 	Password string 
 	Dbname   string 
+	SiteHost string
 }
 
 //Configuration model
@@ -22,11 +22,12 @@ type Configuration struct {
 func New() *Configuration {
  return &Configuration{
 	 Postgre: PostgreSqlConfig{
-		 Host: os.Getenv("Host"),
-		 Port: os.Getenv("Port"),
-		 User: os.Getenv("User"),
-		 Password: os.Getenv("Password"),
-		 Dbname: os.Getenv("Dbname"),
+		 Host: os.Getenv("DB_HOST"),
+		 Port: os.Getenv("DB_PORT"),
+		 User: os.Getenv("DB_USER"),
+		 Password: os.Getenv("DB_PASSWORD"),
+		 Dbname: os.Getenv("DBNAME"),
+		 SiteHost: os.Getenv("SITE_PORT"),
 	 },
  }
 }

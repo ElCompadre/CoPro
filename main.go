@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/elcompadre/copro/config"
 	"fmt"
 	"encoding/json"
 	"net/http"
@@ -26,21 +27,22 @@ type Resource struct {
     Tags        pq.StringArray `gorm:"type:varchar(64)[]"`
 }
 
-func main() {
-
-	if err := godotenv.Load(); err != nil{
+func init() {
+    err := godotenv.Load() 
+    if err != nil{
 		log.Print("No .env file found")
 	}
+}
 
-	fmt.Println(os.Getenv("HOST"))
-
+func main() {
     router := mux.NewRouter()
+    conf := config.New()
 
     db, err = gorm.Open(
         "postgres",
-        "host="+os.Getenv("HOST")+" user="+os.Getenv("USER")+
-        " dbname="+os.Getenv("DBNAME")+" sslmode=disable password="+ 
-        os.Getenv("PASSWORD"))
+        "host="+os.Getenv("")+ " port=" + os.Getenv("") +" user="+os.Getenv("")+
+        " dbname="+os.Getenv("")+" sslmode=disable password="+ 
+        os.Getenv(""))
 
     if err != nil {
         panic("failed to connect database")
@@ -55,7 +57,7 @@ func main() {
     // router.HandleFunc("/resources", CreateResource).Methods("POST")
     // router.HandleFunc("/resources/{id}", DeleteResource).Methods("DELETE")
 
-    log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
+    log.Fatal(http.ListenAndServe(":"+os.Getenv("SITE_PORT"), router))
 }
 
 func GetResources(w http.ResponseWriter, r *http.Request) {
