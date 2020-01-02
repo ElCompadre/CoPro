@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"log"
 	"github.com/lib/pq"
-	"os"
 	"github.com/jinzhu/gorm"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
@@ -40,9 +39,9 @@ func main() {
 
     db, err = gorm.Open(
         "postgres",
-        "host="+os.Getenv("")+ " port=" + os.Getenv("") +" user="+os.Getenv("")+
-        " dbname="+os.Getenv("")+" sslmode=disable password="+ 
-        os.Getenv(""))
+        "host="+ conf.Postgre.Host + " port=" + conf.Postgre.Port +" user="+ conf.Postgre.User +
+        " dbname="+ conf.Postgre.Dbname +" sslmode=disable password="+ 
+        conf.Postgre.Password)
 
     if err != nil {
         panic("failed to connect database")
@@ -59,7 +58,7 @@ func main() {
     // router.HandleFunc("/resources", CreateResource).Methods("POST")
     // router.HandleFunc("/resources/{id}", DeleteResource).Methods("DELETE")
 
-    log.Fatal(http.ListenAndServe(":"+os.Getenv("SITE_PORT"), router))
+    log.Fatal(http.ListenAndServe(":"+ conf.Postgre.SiteHost , router))
 }
 
 func GetResources(w http.ResponseWriter, r *http.Request) {

@@ -1,4 +1,4 @@
-module github.com/elcompadre/copro/api/cmd
+module github.com/elcompadre/elcompadre/copro
 
 go 1.13
 
